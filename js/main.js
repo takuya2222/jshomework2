@@ -1,47 +1,31 @@
-`use strict`
+const button = document.getElementById("button");
+const fizzbuzzList = document.getElementById("output");
 
-const btn = document.getElementById('btn');
-btn.addEventListener('click', () => {
-    const elemFizzNumber = document.getElementById('fizz');
-    const fizzNumber = elemFizzNumber.value;
-    const elemBuzzNumber = document.getElementById('buzz');
-    const buzzNumber = elemBuzzNumber.value;
+const listAdd = (num) => {
+  const li = document.createElement("li");
+  li.textContent = num;
+  fizzbuzzList.appendChild(li);
+};
 
-    const outputArea = document.getElementById('output');
-    outputArea.innerHTML = '';
-    
-    const ptag = document.createElement('p');
-    ptag.textContent = '【出力】';
-    outputArea.appendChild(ptag);
+button.addEventListener("click", () => {
+  const fizzNum = Number(document.getElementById("fizzNum").value);
+  const buzzNum = Number(document.getElementById("buzzNum").value);
 
-    for (let i = 1; i < 100; i++) {
-      let value = '';
-      if (i % fizzNumber === 0 && i % buzzNumber === 0) {
-        value = `FizzBuzz ${i}`;
-      } else if (i % fizzNumber === 0) {
-        value = `Fizz ${i}`;
-      } else if (i % buzzNumber === 0) {
-        value = `Buzz ${i}`;
-      } else {
-        value = ``;
+  if (
+    Number.isInteger(fizzNum) && 
+    Number.isInteger(buzzNum) &&
+    fizzNum > 0 && buzzNum > 0
+  ) {
+    for (i = 1; i < 100; i++) {
+      if (i % fizzNum === 0 && i % buzzNum === 0) {
+        listAdd(`FizzBuzz ${i}`);
+      } else if (i % fizzNum === 0) {
+        listAdd(`Fizz ${i}`);
+      } else if (i % buzzNum === 0) {
+        listAdd(`Buzz ${i}`);
       }
-
-      const fizzbuzz = document.createElement('p');
-      fizzbuzz.textContent = value;
-      const div = document.querySelector('div');
-      outputArea.appendChild(fizzbuzz);
-  }
-
-    if (!fizzNumber || !buzzNumber) {
-      output.innerHTML = '';
-      output.innerHTML = '<p>整数値を入力してください</p>';
-
-    } else if (fizzNumber.match(/^\D+$/) || buzzNumber.match(/^\D+$/)) {
-      output.innerHTML = '';
-      output.innerHTML = '<p>整数値を入力してください</p>';
-
-    } else if (fizzNumber.match(/^-?[0-9]+\.[0-9]+$/) || buzzNumber.match(/^-?[0-9]+\.[0-9]+$/)) {
-      output.innerHTML = '';
-      output.innerHTML = '<p>整数値を入力してください</p>';
     }
+  } else {
+    listAdd("整数値を入力してください");
+  }
 });
